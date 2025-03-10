@@ -1,0 +1,30 @@
+{
+  "ops": [
+    {
+      "id": "generic_benchmark",
+      "args": {
+        "cmd": [
+          "/bin/bash",
+          "-c",
+          "echo \"Running bench...\"; bench --benchmark generic --check-specs --check-gpu --version v1.0.1"
+        ],
+        "env": {
+          "CUDA_VISIBLE_DEVICES": "0",
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+        },
+        "gpu": true,
+        "image": "docker.io/nosana/nn:1.0.8"
+      },
+      "type": "container/run",
+      "results": {
+        "results_system_specs": "(?<=System specs: ).*",
+        "results_generic_benchmark": "(?<=Generic benchmark results: ).*"
+      }
+    },
+  ],
+  "meta": {
+    "trigger": "benchmark"
+  },
+  "type": "container",
+  "version": "0.1"
+}
