@@ -20,7 +20,7 @@
         "results_system_specs": "(?<=System specs: ).*",
         "results_generic_benchmark": "(?<=Generic benchmark results: ).*"
       }
-    },
+    }
   ],
   "meta": {
     "trigger": "benchmark"
