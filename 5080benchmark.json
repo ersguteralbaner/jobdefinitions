@@ -1,0 +1,77 @@
+{
+  "ops": [
+    {
+      "id": "generic_benchmark",
+      "args": {
+        "cmd": [
+          "/bin/bash",
+          "-c",
+          "echo \"Running bench...\"; bench --benchmark generic --check-specs --check-gpu --version v1.0.0"
+        ],
+        "env": {
+          "CUDA_VISIBLE_DEVICES": "0",
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+        },
+        "gpu": true,
+        "image": "nosana/nn:0.0.0-cu12.8"
+      },
+      "type": "container/run",
+      "results": {
+        "results_system_specs": "(?<=System specs: ).*",
+        "results_generic_benchmark": "(?<=Generic benchmark results: ).*"
+      }
+    },
+    {
+      "id": "nn_benchmark",
+      "args": {
+        "cmd": [
+          "/bin/bash",
+          "-c",
+          "echo \"Running gpu check\"; if bench --check-gpu; then echo \"Starting NN server...\"; nn_server > /dev/null 2>&1 & sleep 30; echo \"Running bench...\"; bench --benchmark nn --url http://localhost:8000 --job-length 2000 --num-samples-list 1000 5000 --check-gpu --version v1.0.0; else echo \"GPU check failed. Printing nvidia-smi output:\"; nvidia-smi; fi"
+        ],
+        "env": {
+          "CUDA_VISIBLE_DEVICES": "0",
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+        },
+        "gpu": true,
+        "image": "nosana/nn:0.0.0-cu12.8"
+      },
+      "type": "container/run",
+      "results": {
+        "results_nn_benchmark": "(?<=NN benchmark results: ).*"
+      }
+    },
+    {
+      "id": "bench-SD-comfy",
+      "args": {
+        "cmd": [
+          "/bin/bash",
+          "-c",
+          "echo \"Running gpu check\"; if bench --check-gpu; then echo \"Starting benchmarking service...\"; python -u main.py --listen --port 7860 > /dev/null 2>&1 & sleep 30; echo \"Running bench...\"; bench --benchmark image --url http://localhost:7860 --job-length 200 --model v1-5-pruned-emaonly.safetensors --model-name stable_diffusion_1.5 --image-framework comfy --version v1.0.0; else echo \"GPU check failed. Printing nvidia-smi output:\"; nvidia-smi; fi"
+        ],
+        "env": {
+          "CUDA_VISIBLE_DEVICES": "0",
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+        },
+        "gpu": true,
+        "image": "nosana/comfyui:0.0.0-cu12.8",
+        "resources": [
+          {
+            "url": "https://models.nosana.io/stable-diffusion/1.5",
+            "type": "S3",
+            "target": "/comfyui/models/checkpoints"
+          }
+        ]
+      },
+      "type": "container/run",
+      "results": {
+        "results_image_benchmark": "(?<=Image benchmark results: ).*"
+      }
+    }
+  ],
+  "meta": {
+    "trigger": "benchmark"
+  },
+  "type": "container",
+  "version": "0.1"
+}
