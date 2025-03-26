@@ -8,7 +8,7 @@
         ],
         "env": {
           "API_KEY": "3ef1cece-a4ec-423a-835d-db9e12b21f0c",
-          "NFT_TOKEN_ID": "381",
+          "NFT_TOKEN_ID": "381"
         },
         "gpu": true,
         "image": "registry.hub.docker.com/sogni/sogni-stable-diffusion-worker-no-models:7",
