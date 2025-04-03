@@ -1,0 +1,22 @@
+{
+  "ops": [
+    {
+      "id": "ubuntu-ssh",
+      "args": {
+        "env":{
+	"ROOT_PASSWORD": "123456Nosanapassword."
+	},
+        "gpu": true,
+        "image": "ersguteralbaner/ubuntu-ssh",
+        "expose": 7878
+        
+      },
+      "type": "container/run"
+    }
+  ],
+  "meta": {
+    "trigger": "dashboard"
+  },
+  "type": "container",
+  "version": "0.1"
+}
