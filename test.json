@@ -11,7 +11,7 @@
          	"7878"
            ],
         "gpu": true,
-        "image": "ersguteralbaner/youtubesummarizer",
+        "image": "ersguteralbaner/youtubesummarizer:latest",
         "expose": 7878
       },
       "type": "container/run"
