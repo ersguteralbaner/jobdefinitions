@@ -6,7 +6,7 @@
         "cmd": [],
         "env": {
           "API_KEY": "27bd1948-4bb7-4923-991d-839d08584664",
-          "NFT_TOKEN_ID": "382",        
+          "NFT_TOKEN_ID": "382",
           "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "0"
         },
         "gpu": true,
