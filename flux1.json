@@ -1,0 +1,35 @@
+{
+  "ops": [
+    {
+      "id": "sogniworker1",
+      "args": {
+        "cmd": [],
+        "env": {
+          "API_KEY": "27bd1948-4bb7-4923-991d-839d08584664",
+          "NFT_TOKEN_ID": "382",
+          "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "0"
+        },
+        "gpu": true,
+        "image": "registry.hub.docker.com/sogni/sogni-flux-worker-no-models:6",
+        "expose": 8000,
+        "resources": [
+          {
+            "url": "https://pub-5bc58981af9f42659ff8ada57bfea92c.r2.dev",
+            "type": "S3",
+            "files": [
+              "flux1-schnell-fp8.safetensors"
+            ],
+            "target": "/data-models/Stable-diffusion",
+            "allowWrite": true
+          }
+        ]
+      },
+      "type": "container/run"
+    }
+  ],
+  "meta": {
+    "trigger": "cli"
+  },
+  "type": "container",
+  "version": "0.1"
+}
