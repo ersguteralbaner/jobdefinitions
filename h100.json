@@ -1,0 +1,29 @@
+{
+  "type": "container",
+  "version": "0.1",
+  "meta": {
+    "trigger": "cli"
+  },
+  "ops": [
+    {
+      "id": "scout",
+      "args": {
+        "cmd": [
+          "echo",
+          "done"
+        ],
+        "gpu": true,
+        "image": "ubuntu",
+        "resources": [
+          {
+            "type": "HF",
+            "repo": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+            "target": "root/.cache/huggingface/hub",
+            "accessToken": "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"
+          }
+        ]
+      },
+      "type": "container/run"
+    }
+  ]
+}
