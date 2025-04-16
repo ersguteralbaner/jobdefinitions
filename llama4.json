@@ -1,0 +1,35 @@
+{
+  "type": "container",
+  "version": "0.1",
+  "meta": {
+    "trigger": "cli"
+  },
+  "ops": [
+    {
+      "id": "scout",
+      "args": {
+        "cmd": [
+          "/bin/sh",
+          "-c",
+          "vllm serve meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8 --tensor-parallel-size 8 --max-model-len 1000000 --override-generation-config='{\"attn_temperature_tuning\": true}'"
+        ],
+        "env": {
+          "VLLM_DISABLE_COMPILE_CACHE": "1"
+        },
+        "gpu": true,
+        "image": "docker.io/vllm/vllm-openai:v0.8.4",
+        "expose": 9000,
+        "entrypoint": [],
+        "resources": [
+          {
+            "type": "HF",
+            "repo": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+            "target": "root/.cache/huggingface/hub",
+            "accessToken": "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"
+          }
+        ]
+      },
+      "type": "container/run"
+    }
+  ]
+}
