@@ -29,26 +29,6 @@
       }
     },
     {
-      "id": "nn_benchmark",
-      "args": {
-        "cmd": [
-          "/bin/bash",
-          "-c",
-          "echo \"Running gpu check\"; if bench --check-gpu; then echo \"Starting NN server...\"; nn_server > /dev/null 2>&1 & sleep 30; echo \"Running bench...\"; bench --benchmark nn --url http://localhost:8000 --job-length 600 --check-gpu --version v1.0.0; else echo \"GPU check failed. Printing nvidia-smi output:\"; nvidia-smi; fi"
-        ],
-        "env": {
-          "CUDA_VISIBLE_DEVICES": "0",
-          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
-        },
-        "gpu": true,
-        "image": "nosana/nn:0.0.5-cu12.8"
-      },
-      "type": "container/run",
-      "results": {
-        "results_nn_benchmark": "(?<=NN benchmark results: ).*"
-      }
-    },
-    {
       "id": "bench-SD-comfy",
       "args": {
         "cmd": [
