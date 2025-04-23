@@ -1,34 +1,6 @@
 {
   "ops": [
     {
-      "id": "generic_benchmark",
-      "args": {
-        "cmd": [
-          "/bin/bash",
-          "-c",
-          "echo \"Running bench...\"; bench --benchmark generic --check-specs --check-gpu --version v1.0.2 --load-model-path \"/comfyui/models/checkpoints\""
-        ],
-        "env": {
-          "CUDA_VISIBLE_DEVICES": "0",
-          "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
-        },
-        "gpu": true,
-        "image": "nosana/nn:0.0.5-cu12.8",
-        "resources": [
-          {
-            "url": "https://models.nosana.io/stable-diffusion/1.5",
-            "type": "S3",
-            "target": "/comfyui/models/checkpoints"
-          }
-        ]
-      },
-      "type": "container/run",
-      "results": {
-        "results_system_specs": "(?<=System specs: ).*",
-        "results_generic_benchmark": "(?<=Generic benchmark results: ).*"
-      }
-    },
-    {
       "id": "bench-SD-comfy",
       "args": {
         "cmd": [
