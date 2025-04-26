@@ -9,7 +9,7 @@
         "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "1"
 	},
         "gpu": true,
-        "image": " sogni/sogni-flux-worker:latest",
+        "image": "sogni/sogni-flux-worker:latest",
         
         "private": true
       },
