@@ -1,0 +1,21 @@
+{
+  "ops": [
+    {
+      "id": "sogni",
+      "args": {
+      	"env": {
+	      "API_KEY": "585a436c-a3b6-46fd-a0f1-42a05c5b18d8",
+        "NFT_TOKEN_ID": "702",
+        "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "1"
+	},
+        "gpu": true,
+        "image": " sogni/sogni-flux-worker:latest",
+        
+        "private": true
+      },
+      "type": "container/run"
+    }
+  ],
+  "type": "container",
+  "version": "0.1"
+}
