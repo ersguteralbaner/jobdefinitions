@@ -4,8 +4,8 @@
       "id": "sogni",
       "args": {
       	"env": {
-	      "API_KEY": "585a436c-a3b6-46fd-a0f1-42a05c5b18d8",
-        "NFT_TOKEN_ID": "702",
+	      "API_KEY": "27bd1948-4bb7-4923-991d-839d08584664",
+        "NFT_TOKEN_ID": "722",
         "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "1"
 	},
         "gpu": true,
