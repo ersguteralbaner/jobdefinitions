@@ -4,11 +4,11 @@
       "id": "sogniworker",
       "args": {
         "cmd": [
-          "sh",
-          "-c",
-          "set +H; \
+  "sh",
+  "-c",
+  "set +H; \
 unset ENTRYPOINT; \
-sed -i \"/if (!fs.existsSync(serverConfigPath)) {/,/^}$/c\\\
+sed -i \"/if (!fs.existsSync(serverConfigPath)) {/,/^}$/c\\\\\
 fs.writeFileSync(serverConfigPath, JSON.stringify({ uuid: uuidv4().toUpperCase() }));\" index.js; \
 sed -i \"s/--port 7860//\" /start_both_services_forge.sh; \
 sed -i \"s/const healthCheckPort = 8000;/const healthCheckPort = process.env.HEALTH_PORT || 8000;/\" /index.js; \
@@ -27,7 +27,7 @@ for i in \"${!NFT_TOKEN_IDS[@]}\"; do \
   [ $i -lt $((${#NFT_TOKEN_IDS[@]} - 1)) ] && sleep 20; \
 done; \
 wait"
-        ],
+],
         "env": {
           "API_KEY": "27bd1948-4bb7-4923-991d-839d08584664",
           "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "0"
