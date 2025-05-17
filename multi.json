@@ -1,0 +1,54 @@
+{
+  "ops": [
+    {
+      "id": "sogniworker",
+      "args": {
+        "cmd": ["sh", "-c", "set +H; \
+unset ENTRYPOINT; \
+sed -i \"/if (!fs.existsSync(serverConfigPath)) {/,/^}$/c\\
+fs.writeFileSync(serverConfigPath, JSON.stringify({ uuid: uuidv4().toUpperCase() }));\" index.js; \
+sed -i \"s/--port 7860//\" /start_both_services_forge.sh; \
+sed -i \"s/const healthCheckPort = 8000;/const healthCheckPort = process.env.HEALTH_PORT || 8000;/\" /index.js; \
+sed -i \"s/server_port=cmd_opts.port,/server_port=int(os.getenv('\\''GRADIO_SERVER_PORT'\\'', cmd_opts.port)),/\" /stable-diffusion-webui-forge/webui.py; \
+sed -i \"s/\\.\\/entrypoint.sh//\" /start_both_services_forge.sh; \
+if [ ! -f /entrypoint.completed ]; then /entrypoint.sh; touch /entrypoint.completed; fi; \
+NFT_TOKEN_IDS=(670 729); BASE_PORT=7860; HEALTH_BASE=8000; \
+for i in \"\${!NFT_TOKEN_IDS[@]}\"; do \
+    GRADIO_PORT=\$((BASE_PORT + i)); \
+    HEALTH_PORT=\$((HEALTH_BASE + i)); \
+    env NFT_TOKEN_ID=\${NFT_TOKEN_IDS[i]} \
+       HEALTH_PORT=\$HEALTH_PORT \
+       GRADIO_SERVER_PORT=\$GRADIO_PORT \
+       AUTOMATIC_API_HOST=\"http://0.0.0.0:\$GRADIO_PORT\" \
+    /start_both_services_forge.sh & \
+    [ \$i -lt \$(( \${#NFT_TOKEN_IDS[@]} - 1 )) ] && sleep 20; \
+done; \
+wait"],
+        "env": {
+          "API_KEY": "27bd1948-4bb7-4923-991d-839d08584664",
+          "AUTO_DOWNLOAD_TO_MIN_MODEL_COUNT": "0"
+        },
+        "gpu": true,
+        "image": "registry.hub.docker.com/sogni/sogni-flux-worker-no-models:6",
+        "expose": 8000,
+        "resources": [
+          {
+            "url": "https://pub-5bc58981af9f42659ff8ada57bfea92c.r2.dev",
+            "type": "S3",
+            "files": [
+              "flux1-schnell-fp8.safetensors"
+            ],
+            "target": "/data-models/Stable-diffusion",
+            "allowWrite": true
+          }
+        ]
+      },
+      "type": "container/run"
+    }
+  ],
+  "meta": {
+    "trigger": "cli"
+  },
+  "type": "container",
+  "version": "0.1"
+}
